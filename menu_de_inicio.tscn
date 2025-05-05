@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://qg340ujstgmt"]
+
+[ext_resource type="Script" path="res://menu_de_inicio.gd" id="1_58bgx"]
+[ext_resource type="Texture2D" uid="uid://ckcsqwhdaei0x" path="res://Imagenes/Fondito del menu.png" id="2_cf8uv"]
+
+[node name="Menu de Inicio" type="Node2D"]
+script = ExtResource("1_58bgx")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1149.0
+offset_bottom = 648.0
+texture = ExtResource("2_cf8uv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 243.0
+offset_top = 284.0
+offset_right = 920.0
+offset_bottom = 363.0
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="Salir" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Salir"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Salir" to="." method="_on_salir_pressed"]

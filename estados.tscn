@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://jqby6ru4dxug"]
+
+[ext_resource type="Script" path="res://estados.gd" id="1_jho65"]
+[ext_resource type="Script" path="res://quemadura.gd" id="2_lcwx7"]
+
+[node name="Estados" type="Node2D"]
+script = ExtResource("1_jho65")
+
+[node name="Quemadura" type="Node2D" parent="."]
+script = ExtResource("2_lcwx7")

@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://b5js6qhqxjmon"]
+
+[ext_resource type="Script" path="res://fuego_fatuo.gd" id="1_b12uq"]
+[ext_resource type="Texture2D" uid="uid://33w5o5lraqvu" path="res://Imagenes/Personajes/Personajes/FuegosFatuos.png" id="2_p8x1t"]
+[ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_xrgjd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwn3w"]
+
+[sub_resource type="Animation" id="Animation_t185d"]
+resource_name = "Enemigo_Abajo"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_gniit"]
+resource_name = "Enemigo_Arriba"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.333333, 0.566667, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [11, 9, 7, 10, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ye83d"]
+resource_name = "Enemigo_Izquierda"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_c6t06"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yi6is"]
+_data = {
+"Enemigo_Abajo": SubResource("Animation_t185d"),
+"Enemigo_Arriba": SubResource("Animation_gniit"),
+"Enemigo_Izquierda": SubResource("Animation_ye83d"),
+"RESET": SubResource("Animation_c6t06")
+}
+
+[node name="FuegoFatuo" type="CharacterBody2D" groups=["Jugador"]]
+script = ExtResource("1_b12uq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -2)
+texture = ExtResource("2_p8x1t")
+hframes = 3
+vframes = 3
+frame = 6
+region_enabled = true
+region_rect = Rect2(0, 0, 72, 96)
+
+[node name="Estadisticas" parent="." instance=ExtResource("3_xrgjd")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iwn3w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yi6is")
+}

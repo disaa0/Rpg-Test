@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfgwcflotjsxm"]
+
+[ext_resource type="Texture2D" uid="uid://dciw5s7fkdi7u" path="res://Imagenes/DIsparos/Bola de fuego.png" id="1_fdmyl"]
+[ext_resource type="Script" path="res://bola_de_fuego.gd" id="1_gwjs3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_febx7"]
+size = Vector2(20, 33)
+
+[sub_resource type="Gradient" id="Gradient_14lp4"]
+offsets = PackedFloat32Array(0, 0.977143)
+colors = PackedColorArray(0.894118, 0, 0, 1, 0.913725, 0.85098, 0.447059, 1)
+
+[node name="Bola de fuego" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_gwjs3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fdmyl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_febx7")
+
+[node name="Llamitas" type="CPUParticles2D" parent="."]
+gravity = Vector2(0, 500)
+color_ramp = SubResource("Gradient_14lp4")

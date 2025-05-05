@@ -1,0 +1,103 @@
+[gd_scene load_steps=10 format=3 uid="uid://rch1oh8ocfw4"]
+
+[ext_resource type="Texture2D" uid="uid://dxlpdwofqdl7m" path="res://Imagenes/Personajes/Enemigos/Boss, Necromancer.png" id="1_hx1pm"]
+[ext_resource type="Script" path="res://necromancer.gd" id="1_p27ns"]
+[ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_e5k7a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfbni"]
+size = Vector2(21, 30)
+
+[sub_resource type="Animation" id="Animation_t185d"]
+resource_name = "Enemigo_Abajo"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_gniit"]
+resource_name = "Enemigo_Arriba"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ye83d"]
+resource_name = "Enemigo_Izquierda"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_c6t06"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yi6is"]
+_data = {
+"Enemigo_Abajo": SubResource("Animation_t185d"),
+"Enemigo_Arriba": SubResource("Animation_gniit"),
+"Enemigo_Izquierda": SubResource("Animation_ye83d"),
+"RESET": SubResource("Animation_c6t06")
+}
+
+[node name="Necromancer" type="CharacterBody2D" groups=["Enemigo"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_p27ns")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemigo"]]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_gfbni")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -2)
+texture = ExtResource("1_hx1pm")
+hframes = 3
+vframes = 3
+frame = 6
+region_enabled = true
+region_rect = Rect2(0, 0, 72, 96)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yi6is")
+}
+
+[node name="Estadisticas" parent="." instance=ExtResource("3_e5k7a")]

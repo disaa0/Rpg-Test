@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7og30cissda5"]
+
+[ext_resource type="Texture2D" uid="uid://dh6mrer4tn5p4" path="res://Imagenes/Terreno/Objetines.png" id="1_fnwhd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pbuwp"]
+
+[node name="Roca4" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 8
+visibility_layer = 3
+position = Vector2(1, -19)
+shape = SubResource("CircleShape2D_pbuwp")
+
+[node name="Objetines" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("1_fnwhd")
+region_enabled = true
+region_rect = Rect2(0, 240, 24, 24)

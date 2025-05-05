@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvivbh2d2fbm1"]
+
+[ext_resource type="Texture2D" uid="uid://dh6mrer4tn5p4" path="res://Imagenes/Terreno/Objetines.png" id="1_2wbs3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71kt8"]
+size = Vector2(44, 20)
+
+[node name="Roca1" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 3
+
+[node name="Objetines" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("1_2wbs3")
+region_enabled = true
+region_rect = Rect2(96, 240, 48, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_71kt8")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj0kluiyw3435"]
+
+[ext_resource type="Script" path="res://anillo_rojo.gd" id="1_pqlp6"]
+[ext_resource type="Texture2D" uid="uid://b851iu6s0w6dq" path="res://Imagenes/Objetos/Aniño de rubi.png" id="2_radi4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aigpa"]
+radius = 23.0868
+
+[node name="Anillo Rojo" type="Area2D" groups=["Objetos"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_pqlp6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_radi4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Objetos"]]
+shape = SubResource("CircleShape2D_aigpa")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

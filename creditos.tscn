@@ -1,0 +1,120 @@
+[gd_scene load_steps=8 format=3 uid="uid://bba3sqxg0prk3"]
+
+[ext_resource type="Script" path="res://control.gd" id="1_6pj0g"]
+[ext_resource type="Texture2D" uid="uid://ckcsqwhdaei0x" path="res://Imagenes/Fondito del menu.png" id="2_jnmqw"]
+[ext_resource type="AudioStream" uid="uid://d0je0mgg4gm26" path="res://What Ive Done [Official Music Video] - Linkin Park (mp3cut.net).mp3" id="3_blcvm"]
+
+[sub_resource type="Animation" id="Animation_okswy"]
+resource_name = "Creditines"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Creditos/ContenedorCreditos:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.53333, 4.96667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(304, -528), Vector2(329, 52), Vector2(319, 669)]
+}
+
+[sub_resource type="Animation" id="Animation_qewtn"]
+resource_name = "Creditios"
+
+[sub_resource type="Animation" id="Animation_qo4tg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Creditos/ContenedorCreditos:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(304, -528)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f6127"]
+_data = {
+"Creditines": SubResource("Animation_okswy"),
+"Creditios": SubResource("Animation_qewtn"),
+"RESET": SubResource("Animation_qo4tg")
+}
+
+[node name="Creditos" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6pj0g")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1149.0
+offset_bottom = 648.0
+texture = ExtResource("2_jnmqw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f6127")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_blcvm")
+
+[node name="Creditos" type="CanvasLayer" parent="."]
+
+[node name="ContenedorCreditos" type="VBoxContainer" parent="Creditos"]
+offset_left = 304.0
+offset_top = -528.0
+offset_right = 603.0
+offset_bottom = -262.0
+scale = Vector2(1.86752, 1.96964)
+
+[node name="Label" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Game Designer – Edgar R.R. Martin"
+
+[node name="Label2" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Narrative Designer – Edgar R.R. Martin"
+
+[node name="Label3" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Level Designer – Edgar R.R. Martin"
+
+[node name="Label4" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "UI/UX Designer – Edgar R.R. Martin"
+
+[node name="Label5" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Character Designer – Edgar R.R. Martin"
+
+[node name="Label6" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Systems Designer – Edgar R.R. Martin"
+
+[node name="Label7" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Tester – San"
+
+[node name="Label8" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "World Designer – Edgar R.R. Martin
+"
+
+[node name="Label9" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Sound Designer – Edgar R.R. Martin"
+
+[node name="Label10" type="Label" parent="Creditos/ContenedorCreditos"]
+layout_mode = 2
+text = "Technical Designer – Edgar R.R. Martin"

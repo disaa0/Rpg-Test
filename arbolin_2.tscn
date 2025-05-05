@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnaqxv1iksfsi"]
+
+[ext_resource type="Texture2D" uid="uid://dh6mrer4tn5p4" path="res://Imagenes/Terreno/Objetines.png" id="1_sgfcc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uoct0"]
+radius = 7.0
+
+[node name="Arbolin2" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 3
+
+[node name="Objetines" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("1_sgfcc")
+region_enabled = true
+region_rect = Rect2(56, 24, 32, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_uoct0")

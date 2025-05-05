@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d0je0mgg4gm26"
+path="res://.godot/imported/What Ive Done [Official Music Video] - Linkin Park (mp3cut.net).mp3-eb9e43e7d8206bd9f63ff6628022b432.mp3str"
+
+[deps]
+
+source_file="res://What Ive Done [Official Music Video] - Linkin Park (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/What Ive Done [Official Music Video] - Linkin Park (mp3cut.net).mp3-eb9e43e7d8206bd9f63ff6628022b432.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

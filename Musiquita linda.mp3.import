@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://co21k6i51xl1a"
+path="res://.godot/imported/Musiquita linda.mp3-b0918ff80e03b14d0f209d14769e6651.mp3str"
+
+[deps]
+
+source_file="res://Musiquita linda.mp3"
+dest_files=["res://.godot/imported/Musiquita linda.mp3-b0918ff80e03b14d0f209d14769e6651.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dinsqi0xvaosx"]
+
+[ext_resource type="Script" path="res://inventario.gd" id="1_l0m1h"]
+
+[node name="Inventario" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_l0m1h")
+
+[node name="ItemsGrid" type="GridContainer" parent="."]
+layout_mode = 2
+offset_top = 27.0
+offset_right = 1150.0
+offset_bottom = 27.0
