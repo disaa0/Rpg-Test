@@ -1,0 +1,198 @@
+name: "Godot Project Tests"
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    name: Run Godot Unit Tests
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2
+
+    # Add concurrency to prevent multiple workflows running simultaneously on same PR
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          fetch-depth: 0 # Fetch all history for proper diff analysis
+
+      # Set up caching for faster builds
+      - name: Cache Godot build artifacts
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/godot
+            .godot
+          key: ${{ runner.os }}-godot-${{ hashFiles('**/*.gd', '**/*.tscn') }}
+          restore-keys: |
+            ${{ runner.os }}-godot-
+
+      - name: Install dependencies
+        run: |
+          apt-get update && apt-get install -y git unzip
+
+      - name: Setup GUT addon
+        run: |
+          mkdir -p addons
+          if [ ! -d "addons/gut" ]; then
+            git clone https://github.com/bitwes/Gut.git gut_temp
+            mkdir -p addons/gut
+            cp -r gut_temp/addons/gut/* addons/gut/
+            rm -rf gut_temp
+          fi
+
+      - name: Verify resource directories
+        run: |
+          # Check if image directories exist and create if needed
+          mkdir -p .godot/imported
+          mkdir -p Imagenes
+          echo "Resource directories checked"
+          ls -la Imagenes || echo "Imagenes directory is empty"
+
+      - name: Initialize Godot Project
+        run: |
+          # Create required directories to ensure they exist
+          mkdir -p .godot/imported
+          mkdir -p Imagenes
+
+          # Initialize the Godot project properly
+          # This creates all necessary project files and resource imports
+          echo "Initializing Godot project..."
+          godot --headless --editor --quit
+
+          # Verify the imports were successful
+          echo "Checking project initialization:"
+          ls -la .godot || echo ".godot directory missing"
+          ls -la .godot/imported || echo ".godot/imported directory missing"
+
+      # Check for test file changes in PRs
+      - name: Check files changed
+        id: files_changed
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Changed files in this PR:"
+          git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
+
+          if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q '\.gd\|\.tscn'; then
+            echo "godot_files_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "godot_files_changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Unit Tests
+        run: |
+          # Check for test files
+          echo "Found test files:"
+          find . -name "test_*.gd" -o -name "*_test.gd"
+
+          # Run the tests using Gut CLI with expanded options
+          godot --headless -s addons/gut/gut_cmdln.gd -gdir=res://Test -ginclude_subdirs -gexit=true -glog=2 -gjunit_xml_file=test_results.xml -gignore_pause
+
+      # Create a comment on PRs with test results
+      - name: Process Test Results
+        id: process_results
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          if [ -f test_results.xml ]; then
+            echo "Test results found, processing..."
+            # Extract basic stats (can be expanded with more detailed XML parsing)
+            TOTAL_TESTS=$(grep -c "<testcase" test_results.xml || echo "0")
+            FAILURES=$(grep -c "<failure" test_results.xml || echo "0")
+            
+            echo "total=$TOTAL_TESTS" >> $GITHUB_OUTPUT
+            echo "failures=$FAILURES" >> $GITHUB_OUTPUT
+            
+            # Create a summary for the PR comment
+            echo "### 🎮 Godot Test Results" > test_summary.md
+            echo "- **Total Tests:** $TOTAL_TESTS" >> test_summary.md
+            echo "- **Failures:** $FAILURES" >> test_summary.md
+            
+            if [ "$FAILURES" -gt 0 ]; then
+              echo "⚠️ Some tests failed. Check the artifacts for details." >> test_summary.md
+            else
+              echo "✅ All tests passed!" >> test_summary.md
+            fi
+          else
+            echo "No test results found"
+            echo "total=0" >> $GITHUB_OUTPUT
+            echo "failures=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            let summary = '';
+
+            try {
+              summary = fs.readFileSync('test_summary.md', 'utf8');
+            } catch (error) {
+              summary = '### 🎮 Godot Test Results\nUnable to process test results';
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            ./test_results.xml
+            ./**/*test_output.txt
+          retention-days: 5
+
+  # Add a separate job for code quality checks
+  lint:
+    name: GDScript Lint
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Run GDScript Lint
+        run: |
+          # Find all GDScript files and run lint
+          find . -name "*.gd" -not -path "*/addons/*" | while read file; do
+            echo "Linting $file"
+            godot --headless --script addons/gut/gut_cmdln.gd --gdlint $file >> lint_results.txt || true
+          done
+
+          # Summary of lint results
+          if [ -s lint_results.txt ]; then
+            echo "Lint issues found:"
+            cat lint_results.txt
+            # Don't fail the build for lint issues yet
+          else
+            echo "No lint issues found!"
+          fi
+
+      - name: Upload Lint Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-results
+          path: ./lint_results.txt
+          retention-days: 5
