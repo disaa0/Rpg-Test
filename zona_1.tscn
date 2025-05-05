@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=4 uid="uid://d2xhic6emduwj"]
 
 [ext_resource type="Texture2D" uid="uid://dqv2liy2fx81a" path="res://Terrenito.png" id="1_0yyun"]
-[ext_resource type="Script" path="res://zona_1.gd" id="1_1sn8h"]
+[ext_resource type="Script" uid="uid://pq81khy8gtl2" path="res://zona_1.gd" id="1_1sn8h"]
 [ext_resource type="Texture2D" uid="uid://dja2kg8yo66n2" path="res://Imagenes/Terreno/Liquidos/Liquidos2.png" id="2_vtel1"]
 [ext_resource type="Texture2D" uid="uid://y10qm84cma64" path="res://Imagenes/Terreno/Liquidos/Liquidos1.png" id="3_16p3j"]
 [ext_resource type="AudioStream" uid="uid://co21k6i51xl1a" path="res://Musiquita linda.mp3" id="4_jcqhc"]

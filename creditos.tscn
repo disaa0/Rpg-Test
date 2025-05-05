@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bba3sqxg0prk3"]
 
-[ext_resource type="Script" path="res://control.gd" id="1_6pj0g"]
+[ext_resource type="Script" uid="uid://cttcsfh5yvx8y" path="res://control.gd" id="1_6pj0g"]
 [ext_resource type="Texture2D" uid="uid://ckcsqwhdaei0x" path="res://Imagenes/Fondito del menu.png" id="2_jnmqw"]
-[ext_resource type="AudioStream" uid="uid://d0je0mgg4gm26" path="res://What Ive Done [Official Music Video] - Linkin Park (mp3cut.net).mp3" id="3_blcvm"]
+[ext_resource type="AudioStream" uid="uid://co21k6i51xl1a" path="res://Musiquita linda.mp3" id="3_blcvm"]
 
 [sub_resource type="Animation" id="Animation_okswy"]
 resource_name = "Creditines"
@@ -41,9 +41,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f6127"]
 _data = {
-"Creditines": SubResource("Animation_okswy"),
-"Creditios": SubResource("Animation_qewtn"),
-"RESET": SubResource("Animation_qo4tg")
+&"Creditines": SubResource("Animation_okswy"),
+&"Creditios": SubResource("Animation_qewtn"),
+&"RESET": SubResource("Animation_qo4tg")
 }
 
 [node name="Creditos" type="Control"]

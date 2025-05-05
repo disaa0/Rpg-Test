@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dpkxmiqteoabb"]
 
-[ext_resource type="Script" path="res://hacha_de_acero.gd" id="1_b3166"]
+[ext_resource type="Script" uid="uid://bjjngtl7gxmo0" path="res://hacha_de_acero.gd" id="1_b3166"]
 [ext_resource type="Texture2D" uid="uid://cn8svxfew5ig7" path="res://Imagenes/Armas/Hacha de acero.png" id="1_pfq57"]
 [ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_oagyj"]
 
@@ -40,8 +40,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_13v3b"]
 _data = {
-"Golpe de hacha": SubResource("Animation_y0qeq"),
-"RESET": SubResource("Animation_g8kfk")
+&"Golpe de hacha": SubResource("Animation_y0qeq"),
+&"RESET": SubResource("Animation_g8kfk")
 }
 
 [node name="Hacha de acero" type="Area2D"]
@@ -61,7 +61,7 @@ texture = ExtResource("1_pfq57")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_13v3b")
+&"": SubResource("AnimationLibrary_13v3b")
 }
 
 [node name="Estadisticas" parent="." instance=ExtResource("3_oagyj")]

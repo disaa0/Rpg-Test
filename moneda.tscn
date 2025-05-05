@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dgsqt678btbe5"]
 
-[ext_resource type="Script" path="res://moneda.gd" id="1_alalc"]
+[ext_resource type="Script" uid="uid://butm4hjv2gqlo" path="res://moneda.gd" id="1_alalc"]
 [ext_resource type="Texture2D" uid="uid://dx22uslkk2aaj" path="res://Imagenes/Objetos/Moneda.png" id="2_vrhfc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ng22f"]

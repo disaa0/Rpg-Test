@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b5js6qhqxjmon"]
 
-[ext_resource type="Script" path="res://fuego_fatuo.gd" id="1_b12uq"]
+[ext_resource type="Script" uid="uid://bqk5dd07uaf8p" path="res://fuego_fatuo.gd" id="1_b12uq"]
 [ext_resource type="Texture2D" uid="uid://33w5o5lraqvu" path="res://Imagenes/Personajes/Personajes/FuegosFatuos.png" id="2_p8x1t"]
 [ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_xrgjd"]
 
@@ -70,10 +70,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yi6is"]
 _data = {
-"Enemigo_Abajo": SubResource("Animation_t185d"),
-"Enemigo_Arriba": SubResource("Animation_gniit"),
-"Enemigo_Izquierda": SubResource("Animation_ye83d"),
-"RESET": SubResource("Animation_c6t06")
+&"Enemigo_Abajo": SubResource("Animation_t185d"),
+&"Enemigo_Arriba": SubResource("Animation_gniit"),
+&"Enemigo_Izquierda": SubResource("Animation_ye83d"),
+&"RESET": SubResource("Animation_c6t06")
 }
 
 [node name="FuegoFatuo" type="CharacterBody2D" groups=["Jugador"]]

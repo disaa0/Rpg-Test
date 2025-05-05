@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bj8w3er1m8l5v"]
 
-[ext_resource type="Script" path="res://jugador.gd" id="1_u4ar0"]
+[ext_resource type="Script" uid="uid://3701ehfxqagy" path="res://jugador.gd" id="1_u4ar0"]
 [ext_resource type="Texture2D" uid="uid://b7dft4j8usiya" path="res://Imagenes/Personajes/Caballero.png" id="2_erbxp"]
 [ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_fuihw"]
 
@@ -72,10 +72,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y1kq0"]
 _data = {
-"Animacion_Abajo": SubResource("Animation_tjmhh"),
-"Animacion_Arriba": SubResource("Animation_cnd73"),
-"Animacion_Izquierda": SubResource("Animation_q0wjd"),
-"RESET": SubResource("Animation_hs04u")
+&"Animacion_Abajo": SubResource("Animation_tjmhh"),
+&"Animacion_Arriba": SubResource("Animation_cnd73"),
+&"Animacion_Izquierda": SubResource("Animation_q0wjd"),
+&"RESET": SubResource("Animation_hs04u")
 }
 
 [node name="Jugador" type="CharacterBody2D" groups=["Jugador"]]
@@ -96,7 +96,7 @@ shape = SubResource("RectangleShape2D_m27jm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_y1kq0")
+&"": SubResource("AnimationLibrary_y1kq0")
 }
 
 [node name="Estadisticas" parent="." instance=ExtResource("3_fuihw")]

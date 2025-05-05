@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bd2hxypta3htu"]
 
-[ext_resource type="Script" path="res://esqueleto_guerrero.gd" id="1_xbcax"]
+[ext_resource type="Script" uid="uid://oy0qx8x2e0kj" path="res://esqueleto_guerrero.gd" id="1_xbcax"]
 [ext_resource type="Texture2D" uid="uid://cpg7b7m31cakv" path="res://Imagenes/Personajes/Enemigos/Esqueleto.png" id="2_hyfrg"]
 [ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_28e2c"]
 
@@ -71,10 +71,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yi6is"]
 _data = {
-"Enemigo_Abajo": SubResource("Animation_t185d"),
-"Enemigo_Arriba": SubResource("Animation_gniit"),
-"Enemigo_Izquierda": SubResource("Animation_ye83d"),
-"RESET": SubResource("Animation_c6t06")
+&"Enemigo_Abajo": SubResource("Animation_t185d"),
+&"Enemigo_Arriba": SubResource("Animation_gniit"),
+&"Enemigo_Izquierda": SubResource("Animation_ye83d"),
+&"RESET": SubResource("Animation_c6t06")
 }
 
 [node name="EsqueletoGuerrero" type="CharacterBody2D" groups=["Enemigo"]]

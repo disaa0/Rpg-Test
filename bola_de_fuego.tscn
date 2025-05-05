@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cfgwcflotjsxm"]
 
 [ext_resource type="Texture2D" uid="uid://dciw5s7fkdi7u" path="res://Imagenes/DIsparos/Bola de fuego.png" id="1_fdmyl"]
-[ext_resource type="Script" path="res://bola_de_fuego.gd" id="1_gwjs3"]
+[ext_resource type="Script" uid="uid://cw2cel03aek1u" path="res://bola_de_fuego.gd" id="1_gwjs3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_febx7"]
 size = Vector2(20, 33)

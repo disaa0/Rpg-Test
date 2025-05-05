@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://rwk4gnsoxo3t"]
 
-[ext_resource type="Script" path="res://disparo_de_veneno.gd" id="1_yscys"]
+[ext_resource type="Script" uid="uid://db7l4myyi1rv4" path="res://disparo_de_veneno.gd" id="1_yscys"]
 [ext_resource type="Texture2D" uid="uid://cgt4fej08jvgh" path="res://Imagenes/DIsparos/DisparoDeVeneno.png" id="2_2migc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_88kas"]

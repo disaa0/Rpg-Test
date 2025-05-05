@@ -72,11 +72,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l3y57"]
 _data = {
-"Abajo": SubResource("Animation_vilii"),
-"Arriba": SubResource("Animation_pcibj"),
-"Der": SubResource("Animation_ngos8"),
-"Izq": SubResource("Animation_ya3ae"),
-"RESET": SubResource("Animation_0wcxq")
+&"Abajo": SubResource("Animation_vilii"),
+&"Arriba": SubResource("Animation_pcibj"),
+&"Der": SubResource("Animation_ngos8"),
+&"Izq": SubResource("Animation_ya3ae"),
+&"RESET": SubResource("Animation_0wcxq")
 }
 
 [node name="Leonhard" type="CharacterBody2D"]

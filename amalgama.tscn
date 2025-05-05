@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b25f6ivwnit5"]
 
-[ext_resource type="Script" path="res://amalgama.gd" id="1_cxf8s"]
+[ext_resource type="Script" uid="uid://dgebbjq1m0hxs" path="res://amalgama.gd" id="1_cxf8s"]
 [ext_resource type="Texture2D" uid="uid://tnxg0xiagr04" path="res://Imagenes/Personajes/Enemigos/Amalgama.png" id="2_cm5v8"]
 [ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_dfd8q"]
 
@@ -71,10 +71,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yi6is"]
 _data = {
-"Enemigo_Abajo": SubResource("Animation_t185d"),
-"Enemigo_Arriba": SubResource("Animation_gniit"),
-"Enemigo_Izquierda": SubResource("Animation_ye83d"),
-"RESET": SubResource("Animation_c6t06")
+&"Enemigo_Abajo": SubResource("Animation_t185d"),
+&"Enemigo_Arriba": SubResource("Animation_gniit"),
+&"Enemigo_Izquierda": SubResource("Animation_ye83d"),
+&"RESET": SubResource("Animation_c6t06")
 }
 
 [node name="Amalgama" type="CharacterBody2D" groups=["Enemigo"]]

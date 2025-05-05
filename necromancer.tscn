@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://rch1oh8ocfw4"]
 
 [ext_resource type="Texture2D" uid="uid://dxlpdwofqdl7m" path="res://Imagenes/Personajes/Enemigos/Boss, Necromancer.png" id="1_hx1pm"]
-[ext_resource type="Script" path="res://necromancer.gd" id="1_p27ns"]
+[ext_resource type="Script" uid="uid://7m6s677l6lnh" path="res://necromancer.gd" id="1_p27ns"]
 [ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="3_e5k7a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfbni"]
@@ -71,10 +71,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yi6is"]
 _data = {
-"Enemigo_Abajo": SubResource("Animation_t185d"),
-"Enemigo_Arriba": SubResource("Animation_gniit"),
-"Enemigo_Izquierda": SubResource("Animation_ye83d"),
-"RESET": SubResource("Animation_c6t06")
+&"Enemigo_Abajo": SubResource("Animation_t185d"),
+&"Enemigo_Arriba": SubResource("Animation_gniit"),
+&"Enemigo_Izquierda": SubResource("Animation_ye83d"),
+&"RESET": SubResource("Animation_c6t06")
 }
 
 [node name="Necromancer" type="CharacterBody2D" groups=["Enemigo"]]

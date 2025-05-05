@@ -22,7 +22,7 @@ var inventario = {}
 
 @onready var animation_player = $AnimationPlayer  
 @onready var sprite = $Sprite2D  
-@onready var menu = get_node("Camera2D2/MenuDePausa")
+@onready var menu = null
 
 var en_pausa = false
 var ultima_direccion = Vector2.RIGHT  
@@ -44,7 +44,8 @@ func agregar_al_inventario(nombre: String, cantidad: int = 1):
 	else:
 		inventario[nombre] = cantidad
 	
-	get_parent().actualizar_inventario(inventario)
+	if get_parent().has_method("actualizar_inventario"):
+		get_parent().actualizar_inventario(inventario)
 	
 func _process(_delta):
 	var direction = Vector2.ZERO
@@ -81,7 +82,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("Habilidad 1"):
 			curar_vida(50)
 
-	if Input.is_action_just_pressed("Pausa"):
+	if Input.is_action_just_pressed("Pausa") and menu != null:
 		if menu.visible:
 			menu.hide()
 			get_tree().paused = false
@@ -100,14 +101,16 @@ func curar_vida(cantidad: int):
 	
 	if cantidad > 0:
 		estadisticas.modificar_stat(stats, estadisticas.ConjuntoDeStads.vida, cantidad)
-		get_parent().actualizar_vida(nueva_vida)
+		if get_parent().has_method("actualizar_vida"):
+			get_parent().actualizar_vida(nueva_vida)
 
 func realizar_ataque():
 	if resistencia_actual < 20:
 		print("No tienes suficiente resistencia para atacar")
 		return  
 	resistencia_actual -= 20  # Restamos 20 de resistencia
-	get_parent().actualizar_resistencia(resistencia_actual)  # Actualizar HUD
+	if get_parent().has_method("actualizar_resistencia"):
+		get_parent().actualizar_resistencia(resistencia_actual)  # Actualizar HUD
 	var ataque = ataque_escena.instantiate()
 
 	var posicion_ataque = global_position + (ultima_direccion * 20)
@@ -122,12 +125,14 @@ func realizar_ataque():
 		
 func añadir_monedas(cantidad: int):
 	estadisticas.modificar_stat(stats, estadisticas.ConjuntoDeStads.monedas, cantidad)
-	get_parent().actualizar_monedas(estadisticas.obtener_stat(stats, estadisticas.ConjuntoDeStads.monedas))
+	if get_parent().has_method("actualizar_monedas"):
+		get_parent().actualizar_monedas(estadisticas.obtener_stat(stats, estadisticas.ConjuntoDeStads.monedas))
 	#esta wea acomula los puntos que consigue el jugador, tomando el caso de que tenga puntos iniciales
 	
 func añadir_puntos(cantidad: int):
 	estadisticas.modificar_stat(stats, estadisticas.ConjuntoDeStads.almas, cantidad)
-	get_parent().actualizar_puntaje(estadisticas.obtener_stat(stats, estadisticas.ConjuntoDeStads.almas))
+	if get_parent().has_method("actualizar_puntaje"):
+		get_parent().actualizar_puntaje(estadisticas.obtener_stat(stats, estadisticas.ConjuntoDeStads.almas))
 	#esta wea acomula los puntos que consigue el jugador, tomando el caso de que tenga puntos iniciales
 	
 func _regenerar_resistencia():
@@ -135,7 +140,8 @@ func _regenerar_resistencia():
 		resistencia_actual += 10
 		if resistencia_actual > resistencia_base:
 			resistencia_actual = resistencia_base  # No superar el valor base
-		get_parent().actualizar_resistencia(resistencia_actual)  # Actualizar HUD
+		if get_parent().has_method("actualizar_resistencia"):
+			get_parent().actualizar_resistencia(resistencia_actual)  # Actualizar HUD
 		
 func take_damage(amount: int):
 	var vida_actual = estadisticas.obtener_stat(stats, estadisticas.ConjuntoDeStads.vida)
@@ -151,7 +157,8 @@ func take_damage(amount: int):
 		get_parent().add_child(damage_text) 
 		damage_text.set_damage(amount, Color.CRIMSON)
 	
-	get_parent().actualizar_vida(vida_actual)
+	if get_parent().has_method("actualizar_vida"):
+		get_parent().actualizar_vida(vida_actual)
 
 	if vida_actual <= 0:
 		get_tree().change_scene_to_file("res://menu_de_inicio.tscn")

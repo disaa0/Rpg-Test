@@ -1,13 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmpuwfh78kgjd"]
+[gd_scene load_steps=5 format=3 uid="uid://bmpuwfh78kgjd"]
 
-[ext_resource type="Script" path="res://Test/test_jugador.gd" id="1_i2nch"]
 [ext_resource type="PackedScene" uid="uid://bj8w3er1m8l5v" path="res://jugador.tscn" id="2_o5y02"]
 [ext_resource type="PackedScene" uid="uid://cgvhxuxihw7su" path="res://enemigo.tscn" id="3_gi1rm"]
 [ext_resource type="PackedScene" uid="uid://dpkxmiqteoabb" path="res://hacha_de_acero.tscn" id="4_ie04l"]
 [ext_resource type="PackedScene" uid="uid://ntsu8u5ubkgt" path="res://estadisticas.tscn" id="5_f1bov"]
 
 [node name="TestEnvironment" type="Node2D"]
-script = ExtResource("1_i2nch")
 
 [node name="Jugador" parent="." instance=ExtResource("2_o5y02")]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bv03s45ook22e"]
 
 [ext_resource type="Texture2D" uid="uid://bmn5lybofj7l0" path="res://Imagenes/DIsparos/Lanza.png" id="1_qmfs6"]
-[ext_resource type="Script" path="res://lanza_de_hierro.gd" id="1_yhyua"]
+[ext_resource type="Script" uid="uid://grelpjcoqc7d" path="res://lanza_de_hierro.gd" id="1_yhyua"]
 
 [sub_resource type="Animation" id="Animation_y0qeq"]
 resource_name = "Golpe de hacha"
@@ -36,8 +36,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_13v3b"]
 _data = {
-"Golpe de hacha": SubResource("Animation_y0qeq"),
-"RESET": SubResource("Animation_g8kfk")
+&"Golpe de hacha": SubResource("Animation_y0qeq"),
+&"RESET": SubResource("Animation_g8kfk")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ktn3e"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://vxxcsu8eosyi"]
 
-[ext_resource type="Script" path="res://disparo_de_curacion.gd" id="1_rd2dn"]
+[ext_resource type="Script" uid="uid://iftin25pg2ll" path="res://disparo_de_curacion.gd" id="1_rd2dn"]
 [ext_resource type="Texture2D" uid="uid://brfkevd3xu241" path="res://Imagenes/DIsparos/Disparo Player.png" id="2_nw3j5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fyck"]

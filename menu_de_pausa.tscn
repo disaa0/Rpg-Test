@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ds7owm08rfr5l"]
 
-[ext_resource type="Script" path="res://menu_de_pausa.gd" id="1_6scd4"]
+[ext_resource type="Script" uid="uid://uslr072yg1dl" path="res://menu_de_pausa.gd" id="1_6scd4"]
 [ext_resource type="PackedScene" uid="uid://dinsqi0xvaosx" path="res://inventario.tscn" id="2_h4tvl"]
 
 [node name="MenuDePausa" type="Control"]
