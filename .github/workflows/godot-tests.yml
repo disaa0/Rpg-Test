@@ -11,8 +11,6 @@ jobs:
   test:
     name: Run Godot Unit Tests
     runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.2
 
     # Add concurrency to prevent multiple workflows running simultaneously on same PR
     concurrency:
@@ -25,149 +23,6 @@ jobs:
         with:
           lfs: true
           fetch-depth: 0 # Fetch all history for proper diff analysis
-
-      # Set up caching for faster builds
-      - name: Cache Godot build artifacts
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/godot
-            .godot
-          key: ${{ runner.os }}-godot-${{ hashFiles('**/*.gd', '**/*.tscn') }}
-          restore-keys: |
-            ${{ runner.os }}-godot-
-
-      - name: Install dependencies
-        run: |
-          apt-get update && apt-get install -y git unzip
-
-      - name: Setup GUT addon
-        run: |
-          # Remove any existing GUT installation to ensure clean setup
-          rm -rf addons/gut
-
-          # Clone the GUT repository with full history
-          git clone https://github.com/bitwes/Gut.git gut_temp
-
-          # Create the GUT directory structure
-          mkdir -p addons/gut
-          mkdir -p addons/gut/double_templates
-          mkdir -p addons/gut/fonts
-          mkdir -p addons/gut/gui
-          mkdir -p addons/gut/images
-          mkdir -p addons/gut/utils
-
-          # Copy all required files
-          cp -r gut_temp/addons/gut/* addons/gut/
-
-          # Verify the critical files are present
-          echo "Checking for GutUtils class:"
-          find addons/gut -name "utils.gd" -exec ls -la {} \;
-
-          # Verify double templates are present
-          echo "Checking for double templates:"
-          find addons/gut -name "*.txt" -exec ls -la {} \;
-
-          # Create necessary class_name declarations to fix missing class names
-          echo "Adding missing class_names to GUT files..."
-
-          # Add class_name to GutHookScript
-          if [ -f addons/gut/hook_script.gd ]; then
-            sed -i '1s/^/class_name GutHookScript\n/' addons/gut/hook_script.gd
-          fi
-
-          # Add class_name to GutInputFactory
-          if [ -f addons/gut/input_factory.gd ]; then
-            sed -i '1s/^/class_name GutInputFactory\n/' addons/gut/input_factory.gd
-          fi
-
-          # Add class_name to GutInputSender
-          if [ -f addons/gut/input_sender.gd ]; then
-            sed -i '1s/^/class_name GutInputSender\n/' addons/gut/input_sender.gd
-          fi
-
-          # Add class_name to GutMain (gut.gd)
-          if [ -f addons/gut/gut.gd ]; then
-            sed -i '1s/^/class_name GutMain\n/' addons/gut/gut.gd
-          fi
-
-          # Add class_name to GutStringUtils
-          if [ -f addons/gut/strutils.gd ]; then
-            sed -i '1s/^/class_name GutStringUtils\n/' addons/gut/strutils.gd
-          fi
-
-          # Add class_name to GutTest
-          if [ -f addons/gut/test.gd ]; then
-            sed -i '1s/^/class_name GutTest\n/' addons/gut/test.gd
-          fi
-
-          # Add class_name to GutUtils
-          if [ -f addons/gut/utils.gd ]; then
-            sed -i '1s/^/class_name GutUtils\n/' addons/gut/utils.gd
-          fi
-
-          # Create a .gut_editor_config.json file to ensure it exists
-          echo '{"background_color":"ff262626","font_color":"ffcccccc","font_name":"CourierPrime","font_size":30,"hide_result_tree":false,"hide_output_tree":false,"hide_settings":false,"live_refresh_enabled":false,"output_font_name":"CourierPrime","output_font_size":20,"panel_options":{"Font Name":"CourierPrime","Font Size":30,"Hide Details":false,"Hide Passed":false,"Hide Pending":false,"Hide Warnings":false,"Use Colors":true},"position":{"x":0,"y":0},"prefix":"test_","selected":null,"should_exit":false,"should_exit_on_success":false,"should_maximize":false,"show_help":false,"suffix":"","teardown_timeout":1.0,"test_script_prefix":"test_","unit_test_name":"test_","window_size":{"x":1300.0,"y":700.0}}' > addons/gut/.gut_editor_config.json
-
-          # Handle font files - copy from repository if they exist
-          if [ -f gut_temp/addons/gut/fonts/AnonymousPro-Regular.ttf ]; then
-            cp gut_temp/addons/gut/fonts/AnonymousPro-Regular.ttf addons/gut/fonts/
-          else
-            # Create dummy placeholder fonts
-            echo "Creating placeholder AnonymousPro font"
-            echo "This is a placeholder font file" > addons/gut/fonts/AnonymousPro-Regular.ttf
-          fi
-
-          if [ -f gut_temp/addons/gut/fonts/CourierPrime-Regular.ttf ]; then
-            cp gut_temp/addons/gut/fonts/CourierPrime-Regular.ttf addons/gut/fonts/
-          else
-            echo "Creating placeholder CourierPrime font"
-            echo "This is a placeholder font file" > addons/gut/fonts/CourierPrime-Regular.ttf
-          fi
-
-          # Display the addon structure for debugging
-          echo "GUT addon structure after setup:"
-          find addons/gut -type f | sort
-
-          # Show the first few lines of the modified files to verify class_name additions
-          echo "Verifying class_name additions in key files:"
-          for file in hook_script.gd input_factory.gd input_sender.gd gut.gd strutils.gd test.gd utils.gd; do
-            if [ -f "addons/gut/$file" ]; then
-              echo "=== First 5 lines of addons/gut/$file ==="
-              head -n 5 "addons/gut/$file"
-            fi
-          done
-
-          # Clean up
-          rm -rf gut_temp
-
-      - name: Initialize Godot Project
-        run: |
-          # Create any additional required directories
-          mkdir -p .godot/imported
-          mkdir -p .godot/shader_cache
-          mkdir -p Imagenes
-
-          # Create a simple project.godot file if it doesn't exist
-          if [ ! -f project.godot ]; then
-            echo "Creating minimal project.godot file"
-            echo "; Engine configuration file." > project.godot
-            echo "; It's best edited using the editor UI and not directly," >> project.godot
-            echo "; since the parameters that go here are not all obvious." >> project.godot
-            echo "config_version=5" >> project.godot
-          fi
-
-          echo "Godot project structure:"
-          find . -maxdepth 2 -type d
-
-          # Run editor in headless mode to scan and import assets
-          godot --headless --editor --quit || true
-
-          # Second pass to ensure everything is imported
-          godot --headless --editor --quit || true
-
-          echo "Godot imported resources:"
-          find .godot/imported -type f | head -20 || echo "No imported resources found"
 
       # Check for test file changes in PRs
       - name: Check files changed
@@ -183,21 +38,22 @@ jobs:
             echo "godot_files_changed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Run Unit Tests
-        run: |
-          # Check for test files
-          echo "Found test files:"
-          find . -name "test_*.gd" -o -name "*_test.gd"
-
-          # Try simpler test command first
-          echo "Running tests with simple command..."
-          godot --headless -s addons/gut/gut_cmdln.gd -gdir=res://Test -ginclude_subdirs -gexit
-
-          # If the simple command fails, try with more specific options
-          if [ $? -ne 0 ]; then
-            echo "Simple command failed, trying alternate command..."
-            godot --headless -s addons/gut/gut_cmdln.gd -gdir=res://Test -ginclude_subdirs -gexit=true -glog=2 -gjunit_xml_file=test_results.xml
-          fi
+      - name: Run Godot Tests
+        uses: croconut/godot-tester@v5.2
+        with:
+          version: "4.2.2"
+          release_type: "stable"
+          custom-godot-dl-url: "https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip"
+          custom-godot-binary-path: "Godot_v4.2.2-stable_linux.x86_64"
+          path: "./"
+          is-mono: false
+          import-time: 300
+          test-timeout: 300
+          minimum-pass: 0.95
+          test-dir: "res://Test"
+          assert-check: false
+          max-fails: 10
+          result-output-file: "test_results.xml"
 
       # Create a comment on PRs with test results
       - name: Process Test Results
@@ -206,7 +62,7 @@ jobs:
         run: |
           if [ -f test_results.xml ]; then
             echo "Test results found, processing..."
-            # Extract basic stats (can be expanded with more detailed XML parsing)
+            # Extract basic stats
             TOTAL_TESTS=$(grep -c "<testcase" test_results.xml || echo "0")
             FAILURES=$(grep -c "<failure" test_results.xml || echo "0")
             
