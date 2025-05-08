@@ -62,9 +62,14 @@ jobs:
         run: |
           if [ -f test_results.xml ]; then
             echo "Test results found, processing..."
-            # Extract basic stats
-            TOTAL_TESTS=$(grep -c "<testcase" test_results.xml || echo "0")
-            FAILURES=$(grep -c "<failure" test_results.xml || echo "0")
+            
+            # Use tr to clean output and ensure single integers
+            TOTAL_TESTS=$(grep -c "<testcase" test_results.xml 2>/dev/null | tr -d '\n\r\t ' || echo "0")
+            FAILURES=$(grep -c "<failure" test_results.xml 2>/dev/null | tr -d '\n\r\t ' || echo "0")
+            
+            # Force integers with explicit conversion
+            TOTAL_TESTS=$(($TOTAL_TESTS + 0))
+            FAILURES=$(($FAILURES + 0))
             
             echo "total=$TOTAL_TESTS" >> $GITHUB_OUTPUT
             echo "failures=$FAILURES" >> $GITHUB_OUTPUT
@@ -74,7 +79,7 @@ jobs:
             echo "- **Total Tests:** $TOTAL_TESTS" >> test_summary.md
             echo "- **Failures:** $FAILURES" >> test_summary.md
             
-            if [ "$FAILURES" -gt 0 ]; then
+            if (( FAILURES > 0 )); then
               echo "⚠️ Some tests failed. Check the artifacts for details." >> test_summary.md
             else
               echo "✅ All tests passed!" >> test_summary.md
