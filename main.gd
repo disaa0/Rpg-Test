@@ -24,7 +24,7 @@ extends Node2D
 
 var enemigos_actuales = 0
 var enemigos_derrotados = 0
-const MAX_ENEMIGOS = 6
+const MAX_ENEMIGOS = 12
 const Puntitos_Ricos = 50
 var spawn_necromancer = false
 
